@@ -14,6 +14,43 @@ Smart Model:
 * Constraints: Check only rows and diagonals (columns automatically satisfied)
 * Total domain size: N * N = N^2 possibilities
 
+2. Smart Model Logic Explanation
+------------------------------
+1. Key Insight:
+   - In a valid N-Queens solution, each column must contain exactly one queen
+   - This is a fundamental constraint that must always be satisfied
+   - Instead of checking it, we can encode it into our model structure
+
+2. Implementation Strategy:
+   - Each variable (queen) is pre-assigned to a specific column
+   - Variable Q1 goes in column 1, Q2 in column 2, etc.
+   - We only need to decide which row each queen goes in
+   - This automatically ensures one queen per column
+
+3. Domain Representation:
+   - Instead of storing (row, column) pairs
+   - We only store row numbers (0 to N-1)
+   - Example: Q1=2 means "queen in column 1 is in row 2"
+   - This simplifies both storage and constraint checking
+
+4. Constraint Checking:
+   - Column constraints: Automatically satisfied by design
+   - Row constraints: Check if two queens have same row number
+   - Diagonal constraints: Check if row difference equals column difference
+   Example for N=4:
+   Q1=2, Q2=0, Q3=3, Q4=1 represents:
+   . . . .
+   . . . Q
+   Q . . .
+   . . Q .
+   . Q . .
+
+5. Search Space Reduction:
+   - Natural model: Each queen can be in any of N^2 positions
+   - Smart model: Each queen can only be in N positions
+   - For N=8: Reduced from 64 to 8 possibilities per queen
+   - Total combinations reduced from 64^8 to 8^8
+
 2. Performance Analysis (Precise Measurements)
 -------------------------------------------
 Backtracking Strategy:
