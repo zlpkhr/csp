@@ -2,6 +2,7 @@ package fr.emse.ai.csp.australia;
 
 import fr.emse.ai.csp.core.Assignment;
 import fr.emse.ai.csp.core.BacktrackingStrategy;
+import fr.emse.ai.csp.core.ForwardCheckingStrategy;
 import fr.emse.ai.csp.core.CSP;
 import fr.emse.ai.csp.core.CSPStateListener;
 
@@ -10,31 +11,56 @@ public class MapColoringRunner {
         // Create the CSP
         MapCSP map = new MapCSP();
         
-        // Create the solving strategy
-        BacktrackingStrategy bts = new BacktrackingStrategy();
+        System.out.println("Testing Backtracking Strategy:");
+        System.out.println("============================");
         
-        // Add a listener to track progress
+        // Create and test backtracking strategy
+        BacktrackingStrategy bts = new BacktrackingStrategy();
         bts.addCSPStateListener(new CSPStateListener() {
             @Override
             public void stateChanged(Assignment assignment, CSP csp) {
-                System.out.println("Assignment evolved : " + assignment);
+                System.out.println("Backtracking Assignment: " + assignment);
             }
             
             @Override
             public void stateChanged(CSP csp) {
-                System.out.println("CSP evolved : " + csp);
+                System.out.println("Backtracking CSP evolved: " + csp);
             }
         });
         
-        // Solve and measure time
-        System.out.println("Solving Australia Map Coloring Problem...\n");
-        double start = System.currentTimeMillis();
+        // Solve with backtracking and measure time
+        long startTime = System.nanoTime();
         Assignment solution = bts.solve(map);
-        double end = System.currentTimeMillis();
+        long endTime = System.nanoTime();
         
-        // Print results
-        System.out.println("\nSolution found:");
+        System.out.println("\nBacktracking Solution:");
         System.out.println(solution);
-        System.out.println("\nTime to solve = " + (end - start) + " ms");
+        System.out.printf("Backtracking Time: %.3f ms%n", (endTime - startTime) / 1_000_000.0);
+        
+        System.out.println("\nTesting Forward Checking Strategy:");
+        System.out.println("================================");
+        
+        // Create and test forward checking strategy
+        ForwardCheckingStrategy fcs = new ForwardCheckingStrategy();
+        fcs.addCSPStateListener(new CSPStateListener() {
+            @Override
+            public void stateChanged(Assignment assignment, CSP csp) {
+                System.out.println("Forward Checking Assignment: " + assignment);
+            }
+            
+            @Override
+            public void stateChanged(CSP csp) {
+                System.out.println("Forward Checking CSP evolved: " + csp);
+            }
+        });
+        
+        // Solve with forward checking and measure time
+        startTime = System.nanoTime();
+        solution = fcs.solve(map);
+        endTime = System.nanoTime();
+        
+        System.out.println("\nForward Checking Solution:");
+        System.out.println(solution);
+        System.out.printf("Forward Checking Time: %.3f ms%n", (endTime - startTime) / 1_000_000.0);
     }
 } 
