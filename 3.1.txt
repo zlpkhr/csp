@@ -1,0 +1,52 @@
+N-Queens Problem Analysis (4 to 10 queens)
+
+1. Performance Analysis of Backtracking Strategy:
+------------------------------------------------
+- For N=4 to 7: Shows acceptable performance (0-15ms)
+- For N=8: Performance starts degrading significantly (259ms)
+- For N=9: Somewhat inconsistent performance (75ms)
+- For N=10: Shows clear exponential growth (1540ms)
+
+Key observations:
+* The time complexity grows exponentially with board size
+* Performance becomes impractical for larger boards (N > 10)
+* Guaranteed to find a solution if one exists
+* Systematic but inefficient approach for larger N
+
+2. Comparison with Min-Conflicts Strategy:
+----------------------------------------
+Performance comparison:
+N=4:  Backtracking(2ms)  vs Min-Conflicts(1ms)
+N=5:  Backtracking(0ms)  vs Min-Conflicts(0ms)
+N=6:  Backtracking(15ms) vs Min-Conflicts(35ms)
+N=7:  Backtracking(0ms)  vs Min-Conflicts(0ms)
+N=8:  Backtracking(259ms) vs Min-Conflicts(3ms)
+N=9:  Backtracking(75ms) vs Min-Conflicts(1ms)
+N=10: Backtracking(1540ms) vs Min-Conflicts(4ms)
+
+Key advantages of Min-Conflicts:
+* Maintains consistent performance even for larger N
+* Scales much better (almost constant time)
+* More efficient for practical applications
+* Particularly well-suited for N-Queens problem
+
+3. Conclusions:
+--------------
+1. Algorithm Choice:
+   - For small boards (N ≤ 7): Both strategies are viable
+   - For larger boards (N > 7): Min-conflicts is clearly superior
+   - For production use: Min-conflicts is recommended
+
+2. Scalability:
+   - Backtracking shows clear exponential growth
+   - Min-conflicts maintains near-constant time performance
+   - The difference becomes more pronounced as N increases
+
+3. Trade-offs:
+   - Backtracking: Guaranteed to find solution but slow
+   - Min-conflicts: Fast but not guaranteed (though very reliable for N-Queens)
+
+4. Practical Implications:
+   - For real applications, min-conflicts is the better choice
+   - The natural modeling approach works well with both strategies
+   - The problem demonstrates why local search can outperform systematic search for certain types of problems 
