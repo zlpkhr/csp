@@ -1,0 +1,100 @@
+Map Coloring Problem: Strategy Comparison Analysis
+
+1. Performance Results
+---------------------
+Backtracking Strategy: 9.882 ms
+Forward Checking Strategy: 1.110 ms
+Improvement Factor: ~8.9x faster with Forward Checking
+
+2. Solution Path Analysis
+------------------------
+Backtracking Strategy:
+* Required 27 assignment attempts
+* Made several backtracks when conflicts were found
+* Explored invalid paths before finding solution
+* Final solution: {NSW=RED, WA=GREEN, NT=RED, Q=GREEN, SA=BLUE, V=GREEN, T=RED}
+
+Forward Checking Strategy:
+* Required only 7 assignment attempts
+* No backtracking needed
+* Found solution directly with minimal exploration
+* Same solution: {NSW=RED, Q=GREEN, SA=BLUE, NT=RED, WA=GREEN, V=GREEN, T=RED}
+
+3. Strategy Comparison
+---------------------
+Backtracking Strategy:
+* Pros:
+  - Simple to implement
+  - Guaranteed to find solution if one exists
+  - Uses less memory (no domain maintenance)
+* Cons:
+  - Explores many invalid paths
+  - Discovers conflicts late
+  - More assignments and backtracks needed
+
+Forward Checking Strategy:
+* Pros:
+  - Detects failures early
+  - Reduces search space through domain pruning
+  - Fewer assignment attempts needed
+  - More efficient for dense constraint graphs
+* Cons:
+  - More complex implementation
+  - Higher memory usage (maintains domains)
+  - Overhead of domain management
+
+4. Key Differences in Operation
+-----------------------------
+1. Constraint Propagation:
+   * Backtracking: Only checks current assignment consistency
+   * Forward Checking: Propagates constraints to future variables
+
+2. Domain Management:
+   * Backtracking: Does not modify domains
+   * Forward Checking: Updates domains of unassigned variables
+
+3. Failure Detection:
+   * Backtracking: Discovers failures after assignment
+   * Forward Checking: Detects failures before assignment
+
+4. Search Efficiency:
+   * Backtracking: Blind search with late failure detection
+   * Forward Checking: Informed search with early failure detection
+
+5. Implementation Details
+------------------------
+Forward Checking Improvements:
+1. MRV (Minimum Remaining Values) Heuristic:
+   - Selects variable with smallest domain first
+   - Reduces branching factor
+   - Handles most constrained variables early
+
+2. Domain Pruning:
+   - Removes inconsistent values immediately
+   - Maintains arc consistency with assigned variables
+   - Prevents exploration of invalid paths
+
+3. State Management:
+   - Tracks domain changes
+   - Allows efficient restoration on backtrack
+   - Maintains consistency information
+
+6. Conclusions
+-------------
+1. Performance:
+   Forward Checking significantly outperforms Backtracking for the Map Coloring problem,
+   requiring fewer steps and less time to find a solution.
+
+2. Efficiency:
+   The early detection of failures and domain pruning in Forward Checking
+   provides a more efficient search process, despite the overhead of domain management.
+
+3. Practical Implementation:
+   While Forward Checking requires more complex implementation, its benefits
+   in terms of performance and search efficiency make it the preferred choice
+   for constraint satisfaction problems with significant interdependencies.
+
+4. Problem Characteristics:
+   The Map Coloring problem, with its dense constraint graph, particularly
+   benefits from Forward Checking's ability to propagate constraints and
+   prune invalid values early in the search process. 
