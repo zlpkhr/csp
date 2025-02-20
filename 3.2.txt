@@ -1,0 +1,76 @@
+N-Queens Problem: Refined Model Analysis
+
+1. Model Comparison
+------------------
+Natural Model:
+* Domain size: N^2 (all possible board positions)
+* Variables: N (one per queen)
+* Constraints: Check rows, columns, and diagonals
+* Total domain size: N * N^2 = N^3 possibilities
+
+Smart Model:
+* Domain size: N (only row positions)
+* Variables: N (one per queen, pre-assigned to columns)
+* Constraints: Check only rows and diagonals (columns automatically satisfied)
+* Total domain size: N * N = N^2 possibilities
+
+2. Performance Analysis
+----------------------
+Backtracking Strategy:
+N=4:   Natural(2ms)    vs Smart(0ms)
+N=6:   Natural(13ms)   vs Smart(0ms)
+N=8:   Natural(258ms)  vs Smart(0ms)
+N=10:  Natural(1614ms) vs Smart(1ms)
+N=12:  Natural(37401ms) vs Smart(0ms)
+
+Min-Conflicts Strategy:
+N=4:   Natural(1ms)    vs Smart(0ms)
+N=6:   Natural(14ms)   vs Smart(25ms)
+N=8:   Natural(1ms)    vs Smart(1ms)
+N=10:  Natural(13ms)   vs Smart(6ms)
+N=12:  Natural(4ms)    vs Smart(0ms)
+
+3. Key Improvements
+------------------
+1. Domain Size Reduction:
+   - Natural: N^2 possible positions per queen
+   - Smart: Only N possible positions per queen
+   - Result: Dramatically reduced search space
+
+2. Constraint Satisfaction:
+   - Natural: Must check all constraints explicitly
+   - Smart: Column constraints automatically satisfied
+   - Result: Fewer constraints to check, faster evaluation
+
+3. Memory Usage:
+   - Natural: Stores complete board positions
+   - Smart: Only stores row numbers
+   - Result: More efficient memory utilization
+
+4. Conclusions
+-------------
+1. Backtracking Performance:
+   - Smart model shows dramatic improvement
+   - Natural model becomes impractical beyond N=10
+   - Smart model maintains consistent performance
+
+2. Min-Conflicts Performance:
+   - Both models perform well
+   - Smart model slightly better on average
+   - Difference less pronounced than with backtracking
+
+3. Overall Benefits:
+   - Reduced search space (from N^3 to N^2)
+   - Simplified constraint checking
+   - Better scalability for larger N
+   - More efficient memory usage
+
+4. Best Approach:
+   - For small N (≤ 8): Either model works well
+   - For large N (> 8): Smart model strongly preferred
+   - Smart model with min-conflicts is the most robust solution
+
+5. Key Insight:
+   The improvement demonstrates how proper problem modeling can be as important
+   as the choice of solving algorithm. By encoding the column constraint into
+   the model structure, we significantly reduced the problem complexity. 
