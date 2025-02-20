@@ -14,21 +14,21 @@ Smart Model:
 * Constraints: Check only rows and diagonals (columns automatically satisfied)
 * Total domain size: N * N = N^2 possibilities
 
-2. Performance Analysis
-----------------------
+2. Performance Analysis (Precise Measurements)
+-------------------------------------------
 Backtracking Strategy:
-N=4:   Natural(2ms)    vs Smart(0ms)
-N=6:   Natural(13ms)   vs Smart(0ms)
-N=8:   Natural(258ms)  vs Smart(0ms)
-N=10:  Natural(1614ms) vs Smart(1ms)
-N=12:  Natural(37401ms) vs Smart(0ms)
+N=4:   Natural(1.616ms)    vs Smart(0.096ms)
+N=6:   Natural(15.583ms)   vs Smart(0.070ms)
+N=8:   Natural(298.431ms)  vs Smart(0.148ms)
+N=10:  Natural(1671.727ms) vs Smart(0.206ms)
+N=12:  Natural(38424.027ms) vs Smart(0.543ms)
 
 Min-Conflicts Strategy:
-N=4:   Natural(1ms)    vs Smart(0ms)
-N=6:   Natural(14ms)   vs Smart(25ms)
-N=8:   Natural(1ms)    vs Smart(1ms)
-N=10:  Natural(13ms)   vs Smart(6ms)
-N=12:  Natural(4ms)    vs Smart(0ms)
+N=4:   Natural(0.727ms)    vs Smart(0.317ms)
+N=6:   Natural(1.712ms)    vs Smart(0.254ms)
+N=8:   Natural(2.259ms)    vs Smart(0.050ms)
+N=10:  Natural(7.307ms)    vs Smart(0.228ms)
+N=12:  Natural(4.994ms)    vs Smart(0.306ms)
 
 3. Key Improvements
 ------------------
@@ -51,13 +51,13 @@ N=12:  Natural(4ms)    vs Smart(0ms)
 -------------
 1. Backtracking Performance:
    - Smart model shows dramatic improvement
-   - Natural model becomes impractical beyond N=10
-   - Smart model maintains consistent performance
+   - Natural model becomes impractical beyond N=10 (38.4 seconds for N=12)
+   - Smart model maintains sub-millisecond performance even at N=12 (0.543ms)
 
 2. Min-Conflicts Performance:
-   - Both models perform well
-   - Smart model slightly better on average
-   - Difference less pronounced than with backtracking
+   - Both models perform reasonably well
+   - Smart model consistently faster (mostly sub-millisecond)
+   - Natural model shows more variation but still usable
 
 3. Overall Benefits:
    - Reduced search space (from N^3 to N^2)
@@ -68,9 +68,13 @@ N=12:  Natural(4ms)    vs Smart(0ms)
 4. Best Approach:
    - For small N (≤ 8): Either model works well
    - For large N (> 8): Smart model strongly preferred
-   - Smart model with min-conflicts is the most robust solution
+   - Smart model with either strategy is viable
+   - Backtracking with smart model shows remarkably consistent performance
 
 5. Key Insight:
    The improvement demonstrates how proper problem modeling can be as important
    as the choice of solving algorithm. By encoding the column constraint into
-   the model structure, we significantly reduced the problem complexity. 
+   the model structure, we significantly reduced the problem complexity.
+   The precise measurements reveal that even for "quick" solutions, there is
+   measurable computation time, and the smart model consistently outperforms
+   the natural model by orders of magnitude for larger problems. 

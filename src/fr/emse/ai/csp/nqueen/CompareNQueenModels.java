@@ -68,17 +68,17 @@ public class CompareNQueenModels {
             
             // Natural model
             BacktrackingStrategy bts = new BacktrackingStrategy();
-            long startTime = System.currentTimeMillis();
+            long startTime = System.nanoTime();
             Assignment solution = bts.solve(naturalCSP);
-            long endTime = System.currentTimeMillis();
-            System.out.println("Natural Model Time: " + (endTime - startTime) + " ms");
+            long endTime = System.nanoTime();
+            System.out.printf("Natural Model Time: %.3f ms%n", (endTime - startTime) / 1_000_000.0);
             
             // Smart model
             bts = new BacktrackingStrategy();
-            startTime = System.currentTimeMillis();
+            startTime = System.nanoTime();
             solution = bts.solve(smartCSP);
-            endTime = System.currentTimeMillis();
-            System.out.println("Smart Model Time: " + (endTime - startTime) + " ms");
+            endTime = System.nanoTime();
+            System.out.printf("Smart Model Time: %.3f ms%n", (endTime - startTime) / 1_000_000.0);
             
             // Test with Min-Conflicts
             System.out.println("\nUsing Min-Conflicts Strategy:");
@@ -86,17 +86,24 @@ public class CompareNQueenModels {
             
             // Natural model
             MinConflictsStrategy mcs = new MinConflictsStrategy(n * 100);
-            startTime = System.currentTimeMillis();
+            startTime = System.nanoTime();
             solution = mcs.solve(naturalCSP);
-            endTime = System.currentTimeMillis();
-            System.out.println("Natural Model Time: " + (endTime - startTime) + " ms");
+            endTime = System.nanoTime();
+            System.out.printf("Natural Model Time: %.3f ms%n", (endTime - startTime) / 1_000_000.0);
             
             // Smart model
             mcs = new MinConflictsStrategy(n * 100);
-            startTime = System.currentTimeMillis();
+            startTime = System.nanoTime();
             solution = mcs.solve(smartCSP);
-            endTime = System.currentTimeMillis();
-            System.out.println("Smart Model Time: " + (endTime - startTime) + " ms");
+            endTime = System.nanoTime();
+            System.out.printf("Smart Model Time: %.3f ms%n", (endTime - startTime) / 1_000_000.0);
+            
+            // Verify solutions
+            if (solution != null) {
+                System.out.println("\nVerifying solutions...");
+                System.out.println("Smart model solution is valid: " + solution.isSolution(smartCSP));
+                printSmartSolution(solution, n);
+            }
         }
     }
 } 
